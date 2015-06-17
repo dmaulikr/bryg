@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "icn-menu.png"
+      "filename" : "icn-leaderboard.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "icn-menu@2x.png"
+      "filename" : "icn-leaderboard@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "icn-menu@3x.png"
+      "filename" : "icn-leaderboard@3x.png"
     }
   ],
   "info" : {

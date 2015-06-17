@@ -62,20 +62,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXG-18-zIv">
-                                <rect key="frame" x="20" y="40" width="30" height="30"/>
+                                <rect key="frame" x="15" y="35" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="WY7-wq-wgl"/>
-                                    <constraint firstAttribute="width" constant="30" id="ozq-sT-oJk"/>
+                                    <constraint firstAttribute="width" constant="40" id="KH3-VE-bg3"/>
+                                    <constraint firstAttribute="height" constant="40" id="sH3-Ic-VkC"/>
                                 </constraints>
-                                <state key="normal" image="icn-menu">
+                                <state key="normal" image="icn-leaderboard">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="showLeaderboard" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ljc-S8-EuS"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngg-YV-bed">
-                                <rect key="frame" x="325" y="40" width="30" height="30"/>
+                                <rect key="frame" x="320" y="35" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="LG2-IP-dD6"/>
-                                    <constraint firstAttribute="height" constant="30" id="XGQ-5z-3t5"/>
+                                    <constraint firstAttribute="width" constant="40" id="0Dj-CQ-P6L"/>
+                                    <constraint firstAttribute="height" constant="40" id="esQ-zM-Mdz"/>
                                 </constraints>
                                 <state key="normal" image="icn-reload">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -85,10 +88,10 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-small" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-yL-H7F">
-                                <rect key="frame" x="172" y="40" width="30" height="30"/>
+                                <rect key="frame" x="168" y="35" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="2QS-d7-QNT"/>
-                                    <constraint firstAttribute="width" constant="30" id="dS6-X1-yyv"/>
+                                    <constraint firstAttribute="width" constant="40" id="VsO-uH-jVa"/>
+                                    <constraint firstAttribute="height" constant="40" id="fcL-RF-yxp"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -99,23 +102,23 @@
                             <constraint firstAttribute="centerY" secondItem="kqB-Rl-A9J" secondAttribute="centerY" id="1Ed-fN-jkD"/>
                             <constraint firstItem="kqB-Rl-A9J" firstAttribute="top" secondItem="fV3-Mx-FdB" secondAttribute="bottom" constant="8" id="20K-I7-Qnm"/>
                             <constraint firstItem="kqB-Rl-A9J" firstAttribute="top" secondItem="fYE-LH-h47" secondAttribute="bottom" constant="8" id="3m2-Fy-TKL"/>
-                            <constraint firstItem="QXG-18-zIv" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="4zh-af-WUg"/>
                             <constraint firstAttribute="trailing" secondItem="VOB-ua-jJX" secondAttribute="trailing" constant="20" id="6iL-Rd-IRI"/>
-                            <constraint firstAttribute="centerX" secondItem="p6b-yL-H7F" secondAttribute="centerX" id="7y1-TQ-gaG"/>
                             <constraint firstItem="V8R-yh-3Lb" firstAttribute="top" secondItem="kqB-Rl-A9J" secondAttribute="bottom" constant="8" id="Bfp-k4-iwg"/>
                             <constraint firstAttribute="centerX" secondItem="Wzd-nZ-hCg" secondAttribute="centerX" id="H4l-Og-aCP"/>
-                            <constraint firstItem="p6b-yL-H7F" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="Iod-ws-eOM"/>
                             <constraint firstAttribute="trailing" secondItem="kqB-Rl-A9J" secondAttribute="trailing" constant="20" id="OqD-7c-b1u"/>
-                            <constraint firstItem="ngg-YV-bed" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="T4D-u8-bfa"/>
-                            <constraint firstItem="QXG-18-zIv" firstAttribute="leading" secondItem="fYE-LH-h47" secondAttribute="leading" id="WoN-vK-BXr"/>
+                            <constraint firstItem="ngg-YV-bed" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="Vam-r6-f4v"/>
+                            <constraint firstAttribute="centerX" secondItem="p6b-yL-H7F" secondAttribute="centerX" id="X7j-3w-hTU"/>
                             <constraint firstItem="fYE-LH-h47" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="a3p-qX-ULY"/>
                             <constraint firstItem="kqB-Rl-A9J" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="bvd-Kk-AH3"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="CUe-2O-eZV" secondAttribute="bottom" constant="20" id="czN-X2-asc"/>
+                            <constraint firstItem="QXG-18-zIv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="15" id="d0F-Vk-7EK"/>
                             <constraint firstItem="V8R-yh-3Lb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="erz-BZ-WJ6"/>
                             <constraint firstItem="CUe-2O-eZV" firstAttribute="top" secondItem="Wzd-nZ-hCg" secondAttribute="bottom" constant="8" id="fbs-tj-xvM"/>
                             <constraint firstItem="VOB-ua-jJX" firstAttribute="top" secondItem="kqB-Rl-A9J" secondAttribute="bottom" constant="8" id="kW6-z2-yXU"/>
+                            <constraint firstItem="QXG-18-zIv" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="rWX-xa-OdY"/>
                             <constraint firstAttribute="trailing" secondItem="fV3-Mx-FdB" secondAttribute="trailing" constant="20" id="xJL-Jb-7dJ"/>
-                            <constraint firstItem="fV3-Mx-FdB" firstAttribute="trailing" secondItem="ngg-YV-bed" secondAttribute="trailing" id="zAc-Ty-TYD"/>
+                            <constraint firstItem="p6b-yL-H7F" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="z13-In-sMu"/>
+                            <constraint firstAttribute="trailing" secondItem="ngg-YV-bed" secondAttribute="trailing" constant="15" id="zY0-lc-u0p"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="R5F-pQ-iDG" appends="YES" id="UVU-01-8Ek"/>
@@ -160,8 +163,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icn-menu" width="30" height="30"/>
-        <image name="icn-reload" width="30" height="30"/>
-        <image name="logo-small" width="30" height="30"/>
+        <image name="icn-leaderboard" width="40" height="40"/>
+        <image name="icn-reload" width="40" height="40"/>
+        <image name="logo-small" width="40" height="40"/>
     </resources>
 </document>

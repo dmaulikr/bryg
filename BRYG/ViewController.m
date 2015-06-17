@@ -17,17 +17,60 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <GKGameCenterControllerDelegate>
 {
+    BOOL gameCenterEnabled;
+    BOOL didComplete;
+    
     int blockSize, margin, moves;
     
     NSDictionary *voidCoordinates;
     NSMutableArray *blocks, *colors;
+    NSString *leaderboardId;
 }
 
 @end
 
 @implementation ViewController
+
+-(void)authenticateLocalPlayer
+{
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
+    {
+        if (viewController)
+        {
+            [self presentViewController:viewController animated:YES completion:nil];
+        }
+        
+        else
+        {
+            if ([GKLocalPlayer localPlayer].authenticated)
+            {
+                gameCenterEnabled = YES;
+                
+                [[GKLocalPlayer localPlayer] loadDefaultLeaderboardIdentifierWithCompletionHandler:^(NSString *leaderboardIdentifier, NSError *error)
+                 {
+                     if (error)
+                     {
+                         NSLog(@"%@", [error localizedDescription]);
+                     }
+                     
+                     else
+                     {
+                         leaderboardId = leaderboardIdentifier;
+                     }
+                 }];
+            }
+            
+            else
+            {
+                gameCenterEnabled = NO;
+            }
+        }
+    };
+}
 
 - (void)initBlocks
 {
@@ -99,6 +142,7 @@
 {
     [super viewDidLoad];
     
+    [self authenticateLocalPlayer];
     [self layoutBlocks];
 }
 
@@ -141,6 +185,8 @@
 
 - (IBAction)reload
 {
+    didComplete = NO;
+    
     [colors removeAllObjects];
     [self initColors];
     
@@ -152,11 +198,46 @@
         [view removeFromSuperview];
     }
     
+    self.canvasView.alpha = 1.0;
+    
     [self layoutBlocks];
     
     moves = 0;
     
     self.lblMoves.text = [NSString stringWithFormat:@"%d", moves];
+}
+
+-(void)reportScore
+{
+    if (gameCenterEnabled == NO)
+    {
+        return;
+    }
+        
+    GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardId];
+    score.value = moves;
+    
+    [GKScore reportScores:@[score]
+    withCompletionHandler:^(NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"%@", [error localizedDescription]);
+         }
+     }];
+}
+
+- (IBAction)showLeaderboard
+{
+    GKGameCenterViewController *controller = [[GKGameCenterViewController alloc] init];
+    
+    controller.gameCenterDelegate = self;
+    controller.viewState = GKGameCenterViewControllerStateLeaderboards;
+    controller.leaderboardIdentifier = leaderboardId;
+    
+    [self presentViewController:controller
+                       animated:YES
+                     completion:nil];
 }
 
 - (UIView*)blockWithColor:(UIColor*)color
@@ -192,6 +273,11 @@
 
 - (IBAction)didSwipe:(UISwipeGestureRecognizer*)sender
 {
+    if (didComplete)
+    {
+        return;
+    }
+    
     UISwipeGestureRecognizerDirection direction = [sender direction];
     UIView *blockToMove = nil;
     
@@ -244,30 +330,123 @@
             break;
     }
     
-    if (dx != 0 || dy != 0)
+    if (dx == 0 && dy == 0)
     {
-        blockToMove = blocks[x + dx][y + dy];
-        voidCoordinates = @{@"x":@(x + dx),
-                          @"y":@(y + dy)};
-        
-        blocks[x][y] = blockToMove;
-        blocks[x + dx][y + dy] = [NSNull null];
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.1];
-        
-        CGRect frame = blockToMove.frame;
-        frame.origin.x += dw;
-        frame.origin.y += dh;
-        
-        blockToMove.frame = frame;
-        
-        [UIView commitAnimations];
+        return;
     }
+    
+    blockToMove = blocks[x + dx][y + dy];
+    voidCoordinates = @{@"x":@(x + dx),
+                        @"y":@(y + dy)};
+    
+    blocks[x][y] = blockToMove;
+    blocks[x + dx][y + dy] = [NSNull null];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.1];
+    
+    CGRect frame = blockToMove.frame;
+    frame.origin.x += dw;
+    frame.origin.y += dh;
+    
+    blockToMove.frame = frame;
+    
+    [UIView commitAnimations];
     
     moves++;
     
     self.lblMoves.text = [NSString stringWithFormat:@"%d", moves];
+    
+    if ((didComplete = [self didCompletePuzzle]))
+    {
+        [self animateCompletion];
+        [self reportScore];
+        
+    }
+}
+
+- (void)animateCompletion
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    
+    self.canvasView.alpha = 0.4;
+    
+    [UIView commitAnimations];
+}
+
+- (BOOL)didCompletePuzzle
+{
+    int halfSize = GRID_SIZE / 2;
+    
+    for (int outerIndex = 0; outerIndex < GRID_SIZE; outerIndex++)
+    {
+        for (int innerIndex = 0; innerIndex < GRID_SIZE; innerIndex++)
+        {
+            UIView *block = blocks[outerIndex][innerIndex];
+            
+            if ((NSNull*)block == [NSNull null])
+            {
+                continue;
+            }
+            
+            NSUInteger tag = block.tag;
+            
+            // BLUE
+            
+            if (outerIndex < halfSize &&
+                innerIndex < halfSize)
+            {
+                if (tag != 1)
+                {
+                    //return NO;
+                }
+            }
+            
+            // RED
+            
+            else if (outerIndex >= halfSize &&
+                     innerIndex < halfSize)
+            {
+                if (tag != 2)
+                {
+                    //return NO;
+                }
+            }
+            
+            // YELLOW
+            
+            else if (outerIndex < halfSize &&
+                     innerIndex >= halfSize)
+            {
+                if (tag != 3)
+                {
+                    //return NO;
+                }
+            }
+            
+            // GREEN
+            
+            else if (outerIndex >= halfSize &&
+                     innerIndex >= halfSize)
+            {
+                if (tag != 4)
+                {
+                    //return NO;
+                }
+            }
+        }
+    }
+    
+    return YES;
+}
+
+#pragma mark - GKGameCenterControllerDelegate
+
+-(void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    [gameCenterViewController dismissViewControllerAnimated:YES
+                                                 completion:nil];
 }
 
 @end

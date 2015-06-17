@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Ahmed Omer. All rights reserved.
 //
 
+#import <GameKit/GameKit.h>
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
