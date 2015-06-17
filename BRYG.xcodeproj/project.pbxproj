@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC1699BA1B31939F00F1EADF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1699B81B31939F00F1EADF /* Crashlytics.framework */; };
+		CC1699BB1B31939F00F1EADF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1699B91B31939F00F1EADF /* Fabric.framework */; };
 		CCD40AD31B3083F20076DAF6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD40AD21B3083F20076DAF6 /* main.m */; };
 		CCD40AD61B3083F20076DAF6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD40AD51B3083F20076DAF6 /* AppDelegate.m */; };
 		CCD40AD91B3083F20076DAF6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD40AD81B3083F20076DAF6 /* ViewController.m */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC1699B81B31939F00F1EADF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
+		CC1699B91B31939F00F1EADF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		CCD40ACD1B3083F20076DAF6 /* BRYG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BRYG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD40AD11B3083F20076DAF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCD40AD21B3083F20076DAF6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -33,12 +37,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1699BA1B31939F00F1EADF /* Crashlytics.framework in Frameworks */,
+				CC1699BB1B31939F00F1EADF /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC1699BC1B31954800F1EADF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC1699B81B31939F00F1EADF /* Crashlytics.framework */,
+				CC1699B91B31939F00F1EADF /* Fabric.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CCD40AC41B3083F20076DAF6 = {
 			isa = PBXGroup;
 			children = (
@@ -62,9 +77,10 @@
 				CCD40AD51B3083F20076DAF6 /* AppDelegate.m */,
 				CCD40AD71B3083F20076DAF6 /* ViewController.h */,
 				CCD40AD81B3083F20076DAF6 /* ViewController.m */,
-				CCD40ADA1B3083F20076DAF6 /* Main.storyboard */,
 				CCD40ADD1B3083F20076DAF6 /* Images.xcassets */,
 				CCD40ADF1B3083F20076DAF6 /* LaunchScreen.xib */,
+				CCD40ADA1B3083F20076DAF6 /* Main.storyboard */,
+				CC1699BC1B31954800F1EADF /* Frameworks */,
 				CCD40AD01B3083F20076DAF6 /* Supporting Files */,
 			);
 			path = BRYG;
@@ -89,6 +105,7 @@
 				CCD40AC91B3083F20076DAF6 /* Sources */,
 				CCD40ACA1B3083F20076DAF6 /* Frameworks */,
 				CCD40ACB1B3083F20076DAF6 /* Resources */,
+				CC1699AD1B31925C00F1EADF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -144,6 +161,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CC1699AD1B31925C00F1EADF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./BRYG/Frameworks/Fabric.framework/run 0af296d4e8c2add777363667426846198a5b9584 0e9b3c691c1b319cc222e6e16429282605fb78ec5a2593b11d52fb4ff254d5a4";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CCD40AC91B3083F20076DAF6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -194,7 +227,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ahmed Omer (4X47BZQL5B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ahmed Omer (4X47BZQL5B)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -213,9 +247,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "51fee0e9-d5b7-4e50-ab3e-ee5e782bb91b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -237,7 +272,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ahmed Omer (Q3R62QP3RB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ahmed Omer (Q3R62QP3RB)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -250,8 +286,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "77857252-e986-42d4-b68d-177179a4f698";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -261,6 +298,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BRYG",
+					"$(PROJECT_DIR)/BRYG/Frameworks",
+				);
 				INFOPLIST_FILE = BRYG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -271,6 +314,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BRYG",
+					"$(PROJECT_DIR)/BRYG/Frameworks",
+				);
 				INFOPLIST_FILE = BRYG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
