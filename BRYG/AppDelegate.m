@@ -19,6 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Appirater setAppId:@"1007459535"];
+    [Appirater setSignificantEventsUntilPrompt:1];
     [Appirater setDebug:NO];
     
     [Fabric with:@[CrashlyticsKit]];
@@ -63,7 +64,8 @@
                           duration:0.5
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-                            self.window.rootViewController = controller;
+                            
+                            [self.window setRootViewController:controller];
                         }
                         completion:^(BOOL finished) {
                             

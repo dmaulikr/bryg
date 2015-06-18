@@ -15,9 +15,11 @@
 #define COLOR_YELLOW    Color(241, 196, 15)
 #define COLOR_GREEN     Color(39, 174, 96)
 
-#import "BRYGNotificationViewController.h"
-#import "UIImageEffects.h"
 #import "BRYGBoardViewController.h"
+
+#import "BRYGNotificationViewController.h"
+#import "BRYGUtilities.h"
+#import "UIImageEffects.h"
 
 @interface BRYGBoardViewController () <GKGameCenterControllerDelegate>
 {
@@ -34,43 +36,165 @@
 
 @implementation BRYGBoardViewController
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
+        [self initColors];
+        
+        [self initBlocks];
+    }
+    
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self authenticateLocalPlayer];
+}
+
+#pragma mark -
+
 -(void)authenticateLocalPlayer
 {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     
-    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
-    {
+    localPlayer.authenticateHandler = ^(UIViewController *viewController,
+                                        NSError *error) {
+        
         if (viewController)
         {
-            [self presentViewController:viewController animated:YES completion:nil];
+            [self presentViewController:viewController
+                               animated:YES
+                             completion:nil];
+            
+            return;
+        }
+        
+        if ([GKLocalPlayer localPlayer].authenticated)
+        {
+            gameCenterEnabled = YES;
+            
+            [[GKLocalPlayer localPlayer] loadDefaultLeaderboardIdentifierWithCompletionHandler:^(NSString *leaderboardIdentifier,
+                                                                                                 NSError *error) {
+                
+                if (error)
+                {
+                    NSLog(@"%@", [error localizedDescription]);
+                }
+                
+                else
+                {
+                    leaderboardId = leaderboardIdentifier;
+                }
+                
+            }];
         }
         
         else
         {
-            if ([GKLocalPlayer localPlayer].authenticated)
-            {
-                gameCenterEnabled = YES;
-                
-                [[GKLocalPlayer localPlayer] loadDefaultLeaderboardIdentifierWithCompletionHandler:^(NSString *leaderboardIdentifier, NSError *error)
-                 {
-                     if (error)
-                     {
-                         NSLog(@"%@", [error localizedDescription]);
-                     }
-                     
-                     else
-                     {
-                         leaderboardId = leaderboardIdentifier;
-                     }
-                 }];
-            }
-            
-            else
-            {
-                gameCenterEnabled = NO;
-            }
+            gameCenterEnabled = NO;
         }
     };
+}
+
+- (UIView*)blockWithColor:(UIColor*)color
+{
+    UIView *imageView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, blockSize, blockSize)];
+    
+    imageView.backgroundColor = color;
+    imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    imageView.layer.borderWidth = 0.5;
+    
+    if ([color isEqual:COLOR_BLUE])
+    {
+        imageView.tag = 1;
+    }
+    
+    else if ([color isEqual:COLOR_RED])
+    {
+        imageView.tag = 2;
+    }
+    
+    else if ([color isEqual:COLOR_YELLOW])
+    {
+        imageView.tag = 3;
+    }
+    
+    else if ([color isEqual:COLOR_GREEN])
+    {
+        imageView.tag = 4;
+    }
+    
+    return imageView;
+}
+
+- (BOOL)didCompletePuzzle
+{
+    int halfSize = GRID_SIZE / 2;
+    
+    for (int outerIndex = 0; outerIndex < GRID_SIZE; outerIndex++)
+    {
+        for (int innerIndex = 0; innerIndex < GRID_SIZE; innerIndex++)
+        {
+            UIView *block = blocks[outerIndex][innerIndex];
+            
+            if ((NSNull*)block == [NSNull null])
+            {
+                continue;
+            }
+            
+            NSUInteger tag = block.tag;
+            
+            // BLUE
+            
+            if (outerIndex < halfSize &&
+                innerIndex < halfSize)
+            {
+                if (tag != 1)
+                {
+                    return NO;
+                }
+            }
+            
+            // RED
+            
+            else if (outerIndex >= halfSize &&
+                     innerIndex < halfSize)
+            {
+                if (tag != 2)
+                {
+                    return NO;
+                }
+            }
+            
+            // YELLOW
+            
+            else if (outerIndex < halfSize &&
+                     innerIndex >= halfSize)
+            {
+                if (tag != 3)
+                {
+                    return NO;
+                }
+            }
+            
+            // GREEN
+            
+            else if (outerIndex >= halfSize &&
+                     innerIndex >= halfSize)
+            {
+                if (tag != 4)
+                {
+                    return NO;
+                }
+            }
+        }
+    }
+    
+    return YES;
 }
 
 - (void)initBlocks
@@ -137,25 +261,6 @@
     }
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        [self initColors];
-        
-        [self initBlocks];
-    }
-    
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [self authenticateLocalPlayer];
-}
-
 - (void)layoutBlocks
 {
     blockSize = (self.view.frame.size.width - 40.0) / GRID_SIZE;
@@ -185,7 +290,6 @@
     self.lblGreen.hidden = NO;
     self.lblRed.hidden = NO;
     self.lblYellow.hidden = NO;
-    
 }
 
 - (UIColor*)randomColor
@@ -199,31 +303,14 @@
     return color;
 }
 
-- (IBAction)reload
+- (void)reportScore
 {
-    [self initColors];
-    
-    [self initBlocks];
-    
-    for (UIView* view in self.canvasView.subviews)
-    {
-        [view removeFromSuperview];
-    }
-    
-    [self layoutBlocks];
-    
-    moves = 0;
-    
-    self.lblMoves.text = [NSString stringWithFormat:@"%d", moves];
-}
-
--(void)reportScore
-{
-    if (gameCenterEnabled == NO)
+    if (gameCenterEnabled == NO ||
+        leaderboardId == nil)
     {
         return;
     }
-        
+    
     GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardId];
     score.value = moves;
     
@@ -237,57 +324,18 @@
      }];
 }
 
-- (IBAction)showLeaderboard
+- (void)showNotificationScreen
 {
-    if (gameCenterEnabled == NO)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Center Unavailable" message:@"Please sign in to Game Center to view the leaderboard." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC),
+                   dispatch_get_main_queue(), ^{
         
-        [alert show];
-        return;
-    }
-    
-    GKGameCenterViewController *controller = [[GKGameCenterViewController alloc] init];
-    
-    controller.gameCenterDelegate = self;
-    controller.viewState = GKGameCenterViewControllerStateLeaderboards;
-    controller.leaderboardIdentifier = leaderboardId;
-    
-    [self presentViewController:controller
-                       animated:YES
-                     completion:nil];
+        [self performSegueWithIdentifier:@"SegueGameComplete"
+                                  sender:nil];
+    });
 }
 
-- (UIView*)blockWithColor:(UIColor*)color
-{
-    UIView *imageView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, blockSize, blockSize)];
-    
-    imageView.backgroundColor = color;
-    imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    imageView.layer.borderWidth = 0.5;
-    
-    if ([color isEqual:COLOR_BLUE])
-    {
-        imageView.tag = 1;
-    }
-    
-    else if ([color isEqual:COLOR_RED])
-    {
-        imageView.tag = 2;
-    }
-    
-    else if ([color isEqual:COLOR_YELLOW])
-    {
-        imageView.tag = 3;
-    }
-    
-    else if ([color isEqual:COLOR_GREEN])
-    {
-        imageView.tag = 4;
-    }
-    
-    return imageView;
-}
+
+#pragma mark - IBAction
 
 - (IBAction)didSwipe:(UISwipeGestureRecognizer*)sender
 {
@@ -368,110 +416,58 @@
     
     moves++;
     
-    self.lblMoves.text = [self stringForMoves];
+    self.lblMoves.text = [BRYGUtilities stringForMoves:moves];
     
     if ([self didCompletePuzzle])
     {
-        [self animateCompletion];
+        [self showNotificationScreen];
         [self reportScore];
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (IBAction)reloadBoard
 {
-    BRYGNotificationViewController *controller = [segue destinationViewController];
+    [self initColors];
     
-    CGSize size = self.view.frame.size;
+    [self initBlocks];
     
-    UIGraphicsBeginImageContext(size);
-    CGContextRef cgcontext = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(cgcontext, 0, 0);
-    [self.view.layer renderInContext:cgcontext];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    image = [UIImageEffects imageByApplyingExtraLightEffectToImage:image];
-    
-    controller.numberOfMoves = moves;
-    controller.view.backgroundColor = [UIColor colorWithPatternImage:image];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        
-        [self reload];
-    });
-}
-
-- (void)animateCompletion
-{
-    [self performSegueWithIdentifier:@"SegueGameComplete"
-                              sender:nil];
-}
-
-- (BOOL)didCompletePuzzle
-{
-    int halfSize = GRID_SIZE / 2;
-    
-    for (int outerIndex = 0; outerIndex < GRID_SIZE; outerIndex++)
+    for (UIView* view in self.canvasView.subviews)
     {
-        for (int innerIndex = 0; innerIndex < GRID_SIZE; innerIndex++)
-        {
-            UIView *block = blocks[outerIndex][innerIndex];
-            
-            if ((NSNull*)block == [NSNull null])
-            {
-                continue;
-            }
-            
-            NSUInteger tag = block.tag;
-            
-            // BLUE
-            
-            if (outerIndex < halfSize &&
-                innerIndex < halfSize)
-            {
-                if (tag != 1)
-                {
-                    return NO;
-                }
-            }
-            
-            // RED
-            
-            else if (outerIndex >= halfSize &&
-                     innerIndex < halfSize)
-            {
-                if (tag != 2)
-                {
-                    return NO;
-                }
-            }
-            
-            // YELLOW
-            
-            else if (outerIndex < halfSize &&
-                     innerIndex >= halfSize)
-            {
-                if (tag != 3)
-                {
-                    return NO;
-                }
-            }
-            
-            // GREEN
-            
-            else if (outerIndex >= halfSize &&
-                     innerIndex >= halfSize)
-            {
-                if (tag != 4)
-                {
-                    return NO;
-                }
-            }
-        }
+        [view removeFromSuperview];
     }
     
-    return YES;
+    [self layoutBlocks];
+    
+    moves = 0;
+    
+    self.lblMoves.text = [NSString stringWithFormat:@"%d", moves];
+}
+
+- (IBAction)showLeaderboard
+{
+    if (gameCenterEnabled == NO ||
+        leaderboardId == nil)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Center Unavailable"
+                                                        message:@"Please sign in to Game Center to view the leaderboard."
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
+        
+        [alert show];
+        
+        return;
+    }
+    
+    GKGameCenterViewController *controller = [[GKGameCenterViewController alloc] init];
+    
+    controller.gameCenterDelegate = self;
+    controller.viewState = GKGameCenterViewControllerStateLeaderboards;
+    controller.leaderboardIdentifier = leaderboardId;
+    
+    [self presentViewController:controller
+                       animated:YES
+                     completion:nil];
 }
 
 #pragma mark - GKGameCenterControllerDelegate
@@ -482,14 +478,31 @@
                                                  completion:nil];
 }
 
-- (NSString*)stringForMoves
-{
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    
-    return [formatter stringFromNumber:@(moves)];
-}
+#pragma mark - Navigation
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    BRYGNotificationViewController *controller = [segue destinationViewController];
+    
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    CGContextRef cgcontext = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(cgcontext, 0, 0);
+    
+    [self.view.layer renderInContext:cgcontext];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    image = [UIImageEffects imageByApplyingExtraLightEffectToImage:image];
+    
+    controller.numberOfMoves = moves;
+    controller.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC),
+                   dispatch_get_main_queue(), ^{
+                       
+                       [self reloadBoard];
+                   });
+}
 
 @end

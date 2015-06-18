@@ -83,7 +83,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="reload" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Hj3-fo-pTb"/>
+                                    <action selector="reloadBoard" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2h2-C9-XW8"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-small" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-yL-H7F">
@@ -193,7 +193,7 @@
                                     <fragment>
                                         <string key="content">
 
-On your board, you will find 4 types of blocks, each represented by a different color. These block are placed randomly on the board leaving one slot unoccupied. Your goal is to use this slot to swipe your blocks into place and gather similar blocks together into their designated corner.
+On your board, you will find 4 types of blocks, each represented by a different color. These blocks are placed randomly on the board leaving one slot unoccupied. Your goal is to use this slot to swipe your blocks into place and gather similar blocks together into their designated corner.
 
 Keep your moves to a minimum to make your way up the leaderboard.</string>
                                         <attributes>

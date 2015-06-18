@@ -9,6 +9,7 @@
 #import "BRYGNotificationViewController.h"
 
 #import <Appirater/Appirater.h>
+#import "BRYGUtilities.h"
 
 @implementation BRYGNotificationViewController
 
@@ -16,7 +17,7 @@
 {
     [super viewDidLoad];
     
-    NSString *moves = [self stringForMoves];
+    NSString *moves = [BRYGUtilities stringForMoves:self.numberOfMoves];
     
     NSString *textToDisplay = [NSString stringWithFormat:@"%@ MOVES\n\nHead over to the leaderboard and see how you compare to other players. Keep your moves to a minimum to make your way up the leaderboard.", moves];
     
@@ -30,15 +31,6 @@
                    range:[textToDisplay rangeOfString:[NSString stringWithFormat:@"%@ MOVES", moves]]];
 
     self.message.attributedText = string;
-}
-
-- (NSString*)stringForMoves
-{
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    
-    return [formatter stringFromNumber:@(self.numberOfMoves)];
 }
 
 - (IBAction)dismiss
