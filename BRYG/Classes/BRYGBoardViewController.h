@@ -9,15 +9,22 @@
 #import <GameKit/GameKit.h>
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface BRYGBoardViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UILabel *lblMoves;
 @property (nonatomic, weak) IBOutlet UIView *canvasView;
+
+@property (nonatomic, weak) IBOutlet UILabel *lblBlue;
+@property (nonatomic, weak) IBOutlet UILabel *lblRed;
+@property (nonatomic, weak) IBOutlet UILabel *lblYellow;
+@property (nonatomic, weak) IBOutlet UILabel *lblGreen;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *blueConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *redConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *yellowConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *greenConstraint;
+
+- (void)layoutBlocks;
 
 @end
 

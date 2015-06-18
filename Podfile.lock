@@ -1,0 +1,10 @@
+PODS:
+  - Appirater (2.0.5)
+
+DEPENDENCIES:
+  - Appirater
+
+SPEC CHECKSUMS:
+  Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
+
+COCOAPODS: 0.37.2

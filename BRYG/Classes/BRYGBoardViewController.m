@@ -15,12 +15,13 @@
 #define COLOR_YELLOW    Color(241, 196, 15)
 #define COLOR_GREEN     Color(39, 174, 96)
 
-#import "ViewController.h"
+#import "BRYGNotificationViewController.h"
+#import "UIImageEffects.h"
+#import "BRYGBoardViewController.h"
 
-@interface ViewController () <GKGameCenterControllerDelegate>
+@interface BRYGBoardViewController () <GKGameCenterControllerDelegate>
 {
     BOOL gameCenterEnabled;
-    BOOL didComplete;
     
     int blockSize, margin, moves;
     
@@ -31,7 +32,7 @@
 
 @end
 
-@implementation ViewController
+@implementation BRYGBoardViewController
 
 -(void)authenticateLocalPlayer
 {
@@ -79,6 +80,11 @@
         blocks = [NSMutableArray new];
     }
     
+    else
+    {
+        [blocks removeAllObjects];
+    }
+    
     for (int outerIndex = 0; outerIndex < GRID_SIZE; outerIndex++)
     {
         NSMutableArray *column = [NSMutableArray new];
@@ -101,6 +107,11 @@
     if (colors == nil)
     {
         colors = [NSMutableArray new];
+    }
+    
+    else
+    {
+        [colors removeAllObjects];
     }
     
     int colorCount = (GRID_SIZE/2) * (GRID_SIZE/2);
@@ -126,7 +137,7 @@
     }
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super initWithCoder:aDecoder])
     {
@@ -143,7 +154,6 @@
     [super viewDidLoad];
     
     [self authenticateLocalPlayer];
-    [self layoutBlocks];
 }
 
 - (void)layoutBlocks
@@ -170,6 +180,12 @@
             }
         }
     }
+    
+    self.lblBlue.hidden = NO;
+    self.lblGreen.hidden = NO;
+    self.lblRed.hidden = NO;
+    self.lblYellow.hidden = NO;
+    
 }
 
 - (UIColor*)randomColor
@@ -185,20 +201,14 @@
 
 - (IBAction)reload
 {
-    didComplete = NO;
-    
-    [colors removeAllObjects];
     [self initColors];
     
-    [blocks removeAllObjects];
     [self initBlocks];
     
     for (UIView* view in self.canvasView.subviews)
     {
         [view removeFromSuperview];
     }
-    
-    self.canvasView.alpha = 1.0;
     
     [self layoutBlocks];
     
@@ -229,6 +239,14 @@
 
 - (IBAction)showLeaderboard
 {
+    if (gameCenterEnabled == NO)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Center Unavailable" message:@"Please sign in to Game Center to view the leaderboard." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        
+        [alert show];
+        return;
+    }
+    
     GKGameCenterViewController *controller = [[GKGameCenterViewController alloc] init];
     
     controller.gameCenterDelegate = self;
@@ -273,11 +291,6 @@
 
 - (IBAction)didSwipe:(UISwipeGestureRecognizer*)sender
 {
-    if (didComplete)
-    {
-        return;
-    }
-    
     UISwipeGestureRecognizerDirection direction = [sender direction];
     UIView *blockToMove = nil;
     
@@ -355,24 +368,44 @@
     
     moves++;
     
-    self.lblMoves.text = [NSString stringWithFormat:@"%d", moves];
+    self.lblMoves.text = [self stringForMoves];
     
-    if ((didComplete = [self didCompletePuzzle]))
+    if ([self didCompletePuzzle])
     {
         [self animateCompletion];
         [self reportScore];
-        
     }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    BRYGNotificationViewController *controller = [segue destinationViewController];
+    
+    CGSize size = self.view.frame.size;
+    
+    UIGraphicsBeginImageContext(size);
+    CGContextRef cgcontext = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(cgcontext, 0, 0);
+    [self.view.layer renderInContext:cgcontext];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    image = [UIImageEffects imageByApplyingExtraLightEffectToImage:image];
+    
+    controller.numberOfMoves = moves;
+    controller.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        
+        [self reload];
+    });
 }
 
 - (void)animateCompletion
 {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    
-    self.canvasView.alpha = 0.4;
-    
-    [UIView commitAnimations];
+    [self performSegueWithIdentifier:@"SegueGameComplete"
+                              sender:nil];
 }
 
 - (BOOL)didCompletePuzzle
@@ -399,7 +432,7 @@
             {
                 if (tag != 1)
                 {
-                    //return NO;
+                    return NO;
                 }
             }
             
@@ -410,7 +443,7 @@
             {
                 if (tag != 2)
                 {
-                    //return NO;
+                    return NO;
                 }
             }
             
@@ -421,7 +454,7 @@
             {
                 if (tag != 3)
                 {
-                    //return NO;
+                    return NO;
                 }
             }
             
@@ -432,7 +465,7 @@
             {
                 if (tag != 4)
                 {
-                    //return NO;
+                    return NO;
                 }
             }
         }
@@ -448,5 +481,15 @@
     [gameCenterViewController dismissViewControllerAnimated:YES
                                                  completion:nil];
 }
+
+- (NSString*)stringForMoves
+{
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    
+    return [formatter stringFromNumber:@(moves)];
+}
+
 
 @end
