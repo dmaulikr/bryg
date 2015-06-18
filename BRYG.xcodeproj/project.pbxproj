@@ -13,6 +13,7 @@
 		CC1699BB1B31939F00F1EADF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1699B91B31939F00F1EADF /* Fabric.framework */; };
 		CC34B67F1B33032600BBECBC /* BRYGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CC34B67E1B33032600BBECBC /* BRYGUtilities.m */; };
 		CC34B6811B33062600BBECBC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC34B6801B33062600BBECBC /* GameKit.framework */; };
+		CC555FFA1B337D8C00217B03 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC555FF91B337D8C00217B03 /* Settings.bundle */; };
 		CCD40AD31B3083F20076DAF6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD40AD21B3083F20076DAF6 /* main.m */; };
 		CCD40AD61B3083F20076DAF6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD40AD51B3083F20076DAF6 /* AppDelegate.m */; };
 		CCD40ADC1B3083F20076DAF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD40ADA1B3083F20076DAF6 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		CC34B67D1B33032600BBECBC /* BRYGUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGUtilities.h; path = Classes/BRYGUtilities.h; sourceTree = "<group>"; };
 		CC34B67E1B33032600BBECBC /* BRYGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGUtilities.m; path = Classes/BRYGUtilities.m; sourceTree = "<group>"; };
 		CC34B6801B33062600BBECBC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		CC555FF91B337D8C00217B03 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CCD40ACD1B3083F20076DAF6 /* BRYG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BRYG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD40AD11B3083F20076DAF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCD40AD21B3083F20076DAF6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				CCD40AD51B3083F20076DAF6 /* AppDelegate.m */,
 				CCD40AD11B3083F20076DAF6 /* Info.plist */,
 				CCD40AD21B3083F20076DAF6 /* main.m */,
+				CC555FF91B337D8C00217B03 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			buildConfigurationList = CCD40AF01B3083F30076DAF6 /* Build configuration list for PBXNativeTarget "BRYG" */;
 			buildPhases = (
 				3F4FB5C393FAA0BC17C1CFC5 /* Check Pods Manifest.lock */,
+				CC555FFB1B337E1200217B03 /* ShellScript */,
 				CCD40AC91B3083F20076DAF6 /* Sources */,
 				CCD40ACA1B3083F20076DAF6 /* Frameworks */,
 				CCD40ACB1B3083F20076DAF6 /* Resources */,
@@ -217,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC555FFA1B337D8C00217B03 /* Settings.bundle in Resources */,
 				CCD40ADC1B3083F20076DAF6 /* Main.storyboard in Resources */,
 				CCD40AE11B3083F20076DAF6 /* LaunchScreen.xib in Resources */,
 				CCD40ADE1B3083F20076DAF6 /* Images.xcassets in Resources */,
@@ -268,6 +273,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./BRYG/Frameworks/Fabric.framework/run 0af296d4e8c2add777363667426846198a5b9584 0e9b3c691c1b319cc222e6e16429282605fb78ec5a2593b11d52fb4ff254d5a4";
+		};
+		CC555FFB1B337E1200217B03 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildPlist=\"BRYG/Info.plist\"\nBuildDate=$(date +\"%m-%d-%Y %r\")\n/usr/libexec/PlistBuddy -c \"Set :BuildDate $BuildDate\" $buildPlist";
 		};
 /* End PBXShellScriptBuildPhase section */
 

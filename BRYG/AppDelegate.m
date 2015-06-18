@@ -18,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self updateSettingsBundleInfo];
+    
     [Appirater setAppId:@"1007459535"];
     [Appirater setSignificantEventsUntilPrompt:1];
     [Appirater setDebug:NO];
@@ -87,6 +89,18 @@
     BRYGWelcomeViewController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"WelcomeViewController"];
     
     [self.window setRootViewController:controller];
+}
+
+- (void)updateSettingsBundleInfo {
+    
+    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
+    NSString *date = [[NSBundle mainBundle] infoDictionary][@"BuildDate"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:version
+                                              forKey:@"version_preference"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:date
+                                              forKey:@"date_preference"];
 }
 
 @end
