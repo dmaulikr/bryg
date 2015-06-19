@@ -178,8 +178,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo-small" translatesAutoresizingMaskIntoConstraints="NO" id="aiz-vK-3do">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-small" translatesAutoresizingMaskIntoConstraints="NO" id="aiz-vK-3do">
                                 <rect key="frame" x="168" y="30" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="9oC-3P-bhr"/>
+                                    <constraint firstAttribute="width" constant="40" id="HPB-Vr-bDb"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="HmE-Wm-vTN">
                                 <rect key="frame" x="20" y="280" width="335" height="107"/>
@@ -225,9 +229,11 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="aiz-vK-3do" secondAttribute="centerX" id="AVM-xH-ZyY"/>
                             <constraint firstAttribute="centerX" secondItem="HmE-Wm-vTN" secondAttribute="centerX" id="Ayz-Ww-DCS"/>
                             <constraint firstItem="RRh-K1-tRP" firstAttribute="top" secondItem="FzX-Zj-kiV" secondAttribute="bottom" constant="20" id="Ngc-N4-4yP"/>
                             <constraint firstAttribute="trailing" secondItem="HmE-Wm-vTN" secondAttribute="trailing" constant="20" id="Nha-qG-HmR"/>
+                            <constraint firstItem="aiz-vK-3do" firstAttribute="top" secondItem="eM5-09-0lH" secondAttribute="bottom" constant="10" id="Qch-JS-db3"/>
                             <constraint firstAttribute="centerX" secondItem="FzX-Zj-kiV" secondAttribute="centerX" id="aw5-Ct-hte"/>
                             <constraint firstItem="HmE-Wm-vTN" firstAttribute="leading" secondItem="agA-mI-3uz" secondAttribute="leading" constant="20" id="g0X-As-MWc"/>
                             <constraint firstAttribute="centerY" secondItem="HmE-Wm-vTN" secondAttribute="centerY" id="gwo-e3-cUk"/>
