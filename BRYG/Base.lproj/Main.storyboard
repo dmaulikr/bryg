@@ -284,6 +284,19 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvb-Va-en9">
+                                <rect key="frame" x="127" y="579" width="122" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="R7o-ul-EX4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
+                                <state key="normal" title="RATE ON APP STORE">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="rateOnAppStore" destination="guT-ps-a56" eventType="touchUpInside" id="rwK-o2-hwm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -295,6 +308,8 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                             <constraint firstItem="lUO-Ph-t0W" firstAttribute="top" secondItem="CmN-UR-YQm" secondAttribute="bottom" constant="50" id="JBa-zy-fxq"/>
                             <constraint firstAttribute="trailing" secondItem="lRr-Nl-bzg" secondAttribute="trailing" constant="20" id="JrJ-m4-tyW"/>
                             <constraint firstItem="77Q-bA-rD4" firstAttribute="top" secondItem="6sA-IC-ByY" secondAttribute="bottom" constant="20" id="RzB-Sk-8nM"/>
+                            <constraint firstItem="6sA-IC-ByY" firstAttribute="top" secondItem="Gvb-Va-en9" secondAttribute="bottom" constant="8" id="aSU-oN-sCz"/>
+                            <constraint firstAttribute="centerX" secondItem="Gvb-Va-en9" secondAttribute="centerX" id="m3V-7y-EZd"/>
                         </constraints>
                     </view>
                     <connections>

@@ -7,8 +7,6 @@
 //
 
 #import "BRYGNotificationViewController.h"
-
-#import <Appirater/Appirater.h>
 #import "BRYGUtilities.h"
 
 @implementation BRYGNotificationViewController
@@ -36,10 +34,14 @@
 - (IBAction)dismiss
 {
     [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 
-                                 [Appirater userDidSignificantEvent:YES];
-                             }];
+                             completion:nil];
+}
+
+- (IBAction)rateOnAppStore
+{
+    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1007459535"];
+    
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end

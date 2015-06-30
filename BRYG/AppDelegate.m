@@ -21,7 +21,9 @@
     [self updateSettingsBundleInfo];
     
     [Appirater setAppId:@"1007459535"];
-    [Appirater setSignificantEventsUntilPrompt:1];
+    [Appirater setDaysUntilPrompt:2];
+    [Appirater setUsesUntilPrompt:10];
+    [Appirater setSignificantEventsUntilPrompt:-1];
     [Appirater setDebug:NO];
     
     [Fabric with:@[CrashlyticsKit]];
