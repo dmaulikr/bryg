@@ -16,7 +16,7 @@
     
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     
-    return [formatter stringFromNumber:@(moves)];
+    return [NSString stringWithFormat:@"%@ MOVES", [formatter stringFromNumber:@(moves)]];
 }
 
 @end

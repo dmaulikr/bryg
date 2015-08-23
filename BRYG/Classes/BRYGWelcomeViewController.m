@@ -11,11 +11,11 @@
 
 @implementation BRYGWelcomeViewController
 
-- (IBAction)play
+- (IBAction)next
 {
     AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    [delegate loadGamePlay:YES];
+    [delegate loadGamePlay];
 }
 
 @end

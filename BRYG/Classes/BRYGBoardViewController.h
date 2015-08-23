@@ -1,12 +1,11 @@
 //
-//  ViewController.h
+//  BRYGBoardViewController.h
 //  BRYG
 //
 //  Created by Ahmed Omer on 16/06/2015.
 //  Copyright (c) 2015 Ahmed Omer. All rights reserved.
 //
 
-#import <GameKit/GameKit.h>
 #import <UIKit/UIKit.h>
 
 @interface BRYGBoardViewController : UIViewController
@@ -23,8 +22,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *lblGreen;
 
 @property (nonatomic, weak) IBOutlet UIView *canvasView;
-
-- (void)layoutBlocks;
 
 @end
 

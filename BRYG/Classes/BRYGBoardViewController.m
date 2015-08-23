@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  BRYGBoardViewController.m
 //  BRYG
 //
 //  Created by Ahmed Omer on 16/06/2015.
@@ -15,21 +15,24 @@
 #define COLOR_YELLOW    Color(241, 196, 15)
 #define COLOR_GREEN     Color(39, 174, 96)
 
-#import "BRYGBoardViewController.h"
+#import <GameKit/GameKit.h>
+#import <iAd/iAd.h>
 
+#import "BRYGBoardViewController.h"
 #import "BRYGNotificationViewController.h"
 #import "BRYGUtilities.h"
 #import "UIImageEffects.h"
 
-@interface BRYGBoardViewController () <GKGameCenterControllerDelegate>
+@interface BRYGBoardViewController () <ADBannerViewDelegate, GKGameCenterControllerDelegate>
 {
-    BOOL gameCenterEnabled;
+    BOOL            _gameCenterEnabled;
     
-    int blockSize, margin, moves;
+    int             _blockSize, _margin, _moves;
     
-    NSDictionary *voidCoordinates;
-    NSMutableArray *blocks, *colors;
-    NSString *leaderboardId;
+    ADBannerView    *_bannerView;
+    NSDictionary    *_voidCoordinates;
+    NSMutableArray  *_blocks, *_colors;
+    NSString        *_leaderboardId;
 }
 
 @end
@@ -53,6 +56,10 @@
     [super viewDidLoad];
     
     [self authenticateLocalPlayer];
+    
+    [self layoutBlocks];
+    
+    [self initBannerView];
 }
 
 #pragma mark -
@@ -75,7 +82,7 @@
         
         if ([GKLocalPlayer localPlayer].authenticated)
         {
-            gameCenterEnabled = YES;
+            _gameCenterEnabled = YES;
             
             [[GKLocalPlayer localPlayer] loadDefaultLeaderboardIdentifierWithCompletionHandler:^(NSString *leaderboardIdentifier,
                                                                                                  NSError *error) {
@@ -87,7 +94,7 @@
                 
                 else
                 {
-                    leaderboardId = leaderboardIdentifier;
+                    _leaderboardId = leaderboardIdentifier;
                 }
                 
             }];
@@ -95,14 +102,14 @@
         
         else
         {
-            gameCenterEnabled = NO;
+            _gameCenterEnabled = NO;
         }
     };
 }
 
 - (UIView*)blockWithColor:(UIColor*)color
 {
-    UIView *imageView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, blockSize, blockSize)];
+    UIView *imageView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, _blockSize, _blockSize)];
     
     imageView.backgroundColor = color;
     imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -139,7 +146,7 @@
     {
         for (int innerIndex = 0; innerIndex < GRID_SIZE; innerIndex++)
         {
-            UIView *block = blocks[outerIndex][innerIndex];
+            UIView *block = _blocks[outerIndex][innerIndex];
             
             if ((NSNull*)block == [NSNull null])
             {
@@ -197,16 +204,32 @@
     return YES;
 }
 
+- (void)initBannerView
+{
+    if (_bannerView == nil)
+    {
+        _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+        _bannerView.delegate = self;
+    }
+    
+    [self layoutBannerView];
+    
+    if (_bannerView.superview == nil)
+    {
+        [self.view addSubview:_bannerView];
+    }
+}
+
 - (void)initBlocks
 {
-    if (blocks == nil)
+    if (_blocks == nil)
     {
-        blocks = [NSMutableArray new];
+        _blocks = [NSMutableArray new];
     }
     
     else
     {
-        [blocks removeAllObjects];
+        [_blocks removeAllObjects];
     }
     
     for (int outerIndex = 0; outerIndex < GRID_SIZE; outerIndex++)
@@ -218,68 +241,68 @@
             [column addObject:[self blockWithColor:[self randomColor]]];
         }
         
-        [blocks addObject:column];
+        [_blocks addObject:column];
     }
     
-    blocks[GRID_SIZE - 1][GRID_SIZE - 1] = [NSNull null];
-    voidCoordinates = @{@"x":@(GRID_SIZE - 1),
+    _blocks[GRID_SIZE - 1][GRID_SIZE - 1] = [NSNull null];
+    _voidCoordinates = @{@"x":@(GRID_SIZE - 1),
                         @"y":@(GRID_SIZE - 1)};
 }
 
 - (void)initColors
 {
-    if (colors == nil)
+    if (_colors == nil)
     {
-        colors = [NSMutableArray new];
+        _colors = [NSMutableArray new];
     }
     
     else
     {
-        [colors removeAllObjects];
+        [_colors removeAllObjects];
     }
     
     int colorCount = (GRID_SIZE/2) * (GRID_SIZE/2);
     
     for (int indexBlue = 0; indexBlue < colorCount; indexBlue++)
     {
-        [colors addObject:COLOR_BLUE];
+        [_colors addObject:COLOR_BLUE];
     }
     
     for (int indexRed = 0; indexRed < colorCount; indexRed++)
     {
-        [colors addObject:COLOR_RED];
+        [_colors addObject:COLOR_RED];
     }
     
     for (int indexYellow = 0; indexYellow < colorCount; indexYellow++)
     {
-        [colors addObject:COLOR_YELLOW];
+        [_colors addObject:COLOR_YELLOW];
     }
     
     for (int indexGreen = 0; indexGreen < colorCount; indexGreen++)
     {
-        [colors addObject:COLOR_GREEN];
+        [_colors addObject:COLOR_GREEN];
     }
 }
 
 - (void)layoutBlocks
 {
-    blockSize = (self.view.frame.size.width - 40.0) / GRID_SIZE;
-    margin = ((self.view.frame.size.width - 40.0) - (blockSize * GRID_SIZE)) / 2.0;
+    _blockSize = (self.view.frame.size.width - 40.0) / GRID_SIZE;
+    _margin = ((self.view.frame.size.width - 40.0) - (_blockSize * GRID_SIZE)) / 2.0;
     
-    self.blueConstraint.constant = 20 + margin;
-    self.redConstraint.constant = 20 + margin;
-    self.yellowConstraint.constant = 20 + margin;
-    self.greenConstraint.constant = 20 + margin;
+    self.blueConstraint.constant = 20 + _margin;
+    self.redConstraint.constant = 20 + _margin;
+    self.yellowConstraint.constant = 20 + _margin;
+    self.greenConstraint.constant = 20 + _margin;
     
     for (int outerIndex = 0; outerIndex < GRID_SIZE; outerIndex++)
     {
         for (int innerIndex = 0; innerIndex < GRID_SIZE; innerIndex++)
         {
-            UIView *block = blocks[outerIndex][innerIndex];
+            UIView *block = _blocks[outerIndex][innerIndex];
             
             if ((NSNull*)block != [NSNull null])
             {
-                block.frame = CGRectMake(margin + (blockSize * outerIndex), margin + (blockSize * innerIndex), blockSize, blockSize);
+                block.frame = CGRectMake(_margin + (_blockSize * outerIndex), _margin + (_blockSize * innerIndex), _blockSize, _blockSize);
                 
                 [self.canvasView addSubview:block];
             }
@@ -290,29 +313,30 @@
     self.lblGreen.hidden = NO;
     self.lblRed.hidden = NO;
     self.lblYellow.hidden = NO;
+    self.lblMoves.hidden = NO;
 }
 
 - (UIColor*)randomColor
 {
-    int colorIndex = arc4random()%(colors.count);
+    int colorIndex = arc4random()%(_colors.count);
     
-    UIColor *color = colors[colorIndex];
+    UIColor *color = _colors[colorIndex];
     
-    [colors removeObjectAtIndex:colorIndex];
+    [_colors removeObjectAtIndex:colorIndex];
     
     return color;
 }
 
 - (void)reportScore
 {
-    if (gameCenterEnabled == NO ||
-        leaderboardId == nil)
+    if (_gameCenterEnabled == NO ||
+        _leaderboardId == nil)
     {
         return;
     }
     
-    GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardId];
-    score.value = moves;
+    GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:_leaderboardId];
+    score.value = _moves;
     
     [GKScore reportScores:@[score]
     withCompletionHandler:^(NSError *error)
@@ -342,7 +366,7 @@
     UISwipeGestureRecognizerDirection direction = [sender direction];
     UIView *blockToMove = nil;
     
-    int x = [voidCoordinates[@"x"] intValue], y = [voidCoordinates[@"y"] intValue];
+    int x = [_voidCoordinates[@"x"] intValue], y = [_voidCoordinates[@"y"] intValue];
     int dx = 0, dy = 0, dw = 0, dh = 0;
     
     switch (direction)
@@ -351,7 +375,7 @@
         {
             if (y < (GRID_SIZE - 1))
             {
-                dx = 0, dy = 1, dw = 0; dh = -(blockSize);
+                dx = 0, dy = 1, dw = 0; dh = -(_blockSize);
             }
             
             break;
@@ -361,7 +385,7 @@
         {
             if (y > 0)
             {
-                dx = 0, dy = -1, dw = 0; dh = blockSize;
+                dx = 0, dy = -1, dw = 0; dh = _blockSize;
             }
             
             break;
@@ -371,7 +395,7 @@
         {
             if (x < GRID_SIZE - 1)
             {
-                dx = 1, dy = 0, dw = -(blockSize); dh = 0;
+                dx = 1, dy = 0, dw = -(_blockSize); dh = 0;
             }
             
             break;
@@ -381,7 +405,7 @@
         {
             if (x > 0)
             {
-                dx = -1, dy = 0, dw = blockSize; dh = 0;
+                dx = -1, dy = 0, dw = _blockSize; dh = 0;
             }
             
             break;
@@ -396,12 +420,12 @@
         return;
     }
     
-    blockToMove = blocks[x + dx][y + dy];
-    voidCoordinates = @{@"x":@(x + dx),
+    blockToMove = _blocks[x + dx][y + dy];
+    _voidCoordinates = @{@"x":@(x + dx),
                         @"y":@(y + dy)};
     
-    blocks[x][y] = blockToMove;
-    blocks[x + dx][y + dy] = [NSNull null];
+    _blocks[x][y] = blockToMove;
+    _blocks[x + dx][y + dy] = [NSNull null];
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.1];
@@ -414,9 +438,9 @@
     
     [UIView commitAnimations];
     
-    moves++;
+    _moves++;
     
-    self.lblMoves.text = [BRYGUtilities stringForMoves:moves];
+    self.lblMoves.text = [BRYGUtilities stringForMoves:_moves];
     
     if ([self didCompletePuzzle])
     {
@@ -438,15 +462,15 @@
     
     [self layoutBlocks];
     
-    moves = 0;
+    _moves = 0;
     
-    self.lblMoves.text = [NSString stringWithFormat:@"%d", moves];
+    self.lblMoves.text = [NSString stringWithFormat:@"%d MOVES", _moves];
 }
 
 - (IBAction)showLeaderboard
 {
-    if (gameCenterEnabled == NO ||
-        leaderboardId == nil)
+    if (_gameCenterEnabled == NO ||
+        _leaderboardId == nil)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Center Unavailable"
                                                         message:@"Please sign in to Game Center to view the leaderboard."
@@ -463,7 +487,7 @@
     
     controller.gameCenterDelegate = self;
     controller.viewState = GKGameCenterViewControllerStateLeaderboards;
-    controller.leaderboardIdentifier = leaderboardId;
+    controller.leaderboardIdentifier = _leaderboardId;
     
     [self presentViewController:controller
                        animated:YES
@@ -495,7 +519,7 @@
     
     image = [UIImageEffects imageByApplyingExtraLightEffectToImage:image];
     
-    controller.numberOfMoves = moves;
+    controller.numberOfMoves = _moves;
     controller.view.backgroundColor = [UIColor colorWithPatternImage:image];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC),
@@ -503,6 +527,45 @@
                        
                        [self reloadBoard];
                    });
+}
+
+#pragma mark - ADBannerViewDelegate
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    [self layoutBannerView];
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    [self layoutBannerView];
+}
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+    return YES;
+}
+
+- (void)layoutBannerView
+{
+    CGRect contentFrame = self.view.bounds;
+    CGRect bannerFrame = _bannerView.frame;
+    
+    if (_bannerView.bannerLoaded)
+    {
+        contentFrame.size.height -= _bannerView.frame.size.height;
+        bannerFrame.origin.y = contentFrame.size.height;
+    }
+    
+    else
+    {
+        bannerFrame.origin.y = contentFrame.size.height;
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        _bannerView.frame = bannerFrame;
+    }];
 }
 
 @end

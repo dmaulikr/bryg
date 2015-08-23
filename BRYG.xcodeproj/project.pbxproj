@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		A0CD0ABE980B2B1A91594F58 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6085F06744CBA736567796A9 /* libPods.a */; };
+		CC0DE1F41B88E6A3004D0AFB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0DE1F31B88E6A3004D0AFB /* iAd.framework */; };
 		CC1699BA1B31939F00F1EADF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1699B81B31939F00F1EADF /* Crashlytics.framework */; };
 		CC1699BB1B31939F00F1EADF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1699B91B31939F00F1EADF /* Fabric.framework */; };
+		CC26A18D1B887CEC00055509 /* BRYGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CC26A18C1B887CEC00055509 /* BRYGUtilities.m */; };
 		CC34B6811B33062600BBECBC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC34B6801B33062600BBECBC /* GameKit.framework */; };
 		CC555FFA1B337D8C00217B03 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC555FF91B337D8C00217B03 /* Settings.bundle */; };
 		CC6D47AC1B33DD74009FFF83 /* BRYGBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6D47A51B33DD74009FFF83 /* BRYGBoardViewController.m */; };
 		CC6D47AD1B33DD74009FFF83 /* BRYGNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6D47A71B33DD74009FFF83 /* BRYGNotificationViewController.m */; };
-		CC6D47AE1B33DD74009FFF83 /* BRYGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6D47A91B33DD74009FFF83 /* BRYGUtilities.m */; };
 		CC6D47AF1B33DD74009FFF83 /* BRYGWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6D47AB1B33DD74009FFF83 /* BRYGWelcomeViewController.m */; };
 		CCD40AD31B3083F20076DAF6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD40AD21B3083F20076DAF6 /* main.m */; };
 		CCD40AD61B3083F20076DAF6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD40AD51B3083F20076DAF6 /* AppDelegate.m */; };
@@ -27,16 +28,17 @@
 /* Begin PBXFileReference section */
 		6085F06744CBA736567796A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C39C49F9BB56AE438CD35A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		CC0DE1F31B88E6A3004D0AFB /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		CC1699B81B31939F00F1EADF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		CC1699B91B31939F00F1EADF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
+		CC26A18B1B887CEC00055509 /* BRYGUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGUtilities.h; path = Classes/BRYGUtilities.h; sourceTree = "<group>"; };
+		CC26A18C1B887CEC00055509 /* BRYGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGUtilities.m; path = Classes/BRYGUtilities.m; sourceTree = "<group>"; };
 		CC34B6801B33062600BBECBC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		CC555FF91B337D8C00217B03 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CC6D47A41B33DD74009FFF83 /* BRYGBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGBoardViewController.h; path = Classes/BRYGBoardViewController.h; sourceTree = "<group>"; };
 		CC6D47A51B33DD74009FFF83 /* BRYGBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGBoardViewController.m; path = Classes/BRYGBoardViewController.m; sourceTree = "<group>"; };
 		CC6D47A61B33DD74009FFF83 /* BRYGNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGNotificationViewController.h; path = Classes/BRYGNotificationViewController.h; sourceTree = "<group>"; };
 		CC6D47A71B33DD74009FFF83 /* BRYGNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGNotificationViewController.m; path = Classes/BRYGNotificationViewController.m; sourceTree = "<group>"; };
-		CC6D47A81B33DD74009FFF83 /* BRYGUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGUtilities.h; path = Classes/BRYGUtilities.h; sourceTree = "<group>"; };
-		CC6D47A91B33DD74009FFF83 /* BRYGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGUtilities.m; path = Classes/BRYGUtilities.m; sourceTree = "<group>"; };
 		CC6D47AA1B33DD74009FFF83 /* BRYGWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGWelcomeViewController.h; path = Classes/BRYGWelcomeViewController.h; sourceTree = "<group>"; };
 		CC6D47AB1B33DD74009FFF83 /* BRYGWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGWelcomeViewController.m; path = Classes/BRYGWelcomeViewController.m; sourceTree = "<group>"; };
 		CCD40ACD1B3083F20076DAF6 /* BRYG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BRYG.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +61,7 @@
 			files = (
 				CC1699BA1B31939F00F1EADF /* Crashlytics.framework in Frameworks */,
 				CC1699BB1B31939F00F1EADF /* Fabric.framework in Frameworks */,
+				CC0DE1F41B88E6A3004D0AFB /* iAd.framework in Frameworks */,
 				CC34B6811B33062600BBECBC /* GameKit.framework in Frameworks */,
 				A0CD0ABE980B2B1A91594F58 /* libPods.a in Frameworks */,
 			);
@@ -70,6 +73,7 @@
 		2F4AB96B71C2EAB62C3320DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC0DE1F31B88E6A3004D0AFB /* iAd.framework */,
 				CC34B6801B33062600BBECBC /* GameKit.framework */,
 				6085F06744CBA736567796A9 /* libPods.a */,
 			);
@@ -119,8 +123,8 @@
 				CC6D47A51B33DD74009FFF83 /* BRYGBoardViewController.m */,
 				CC6D47A61B33DD74009FFF83 /* BRYGNotificationViewController.h */,
 				CC6D47A71B33DD74009FFF83 /* BRYGNotificationViewController.m */,
-				CC6D47A81B33DD74009FFF83 /* BRYGUtilities.h */,
-				CC6D47A91B33DD74009FFF83 /* BRYGUtilities.m */,
+				CC26A18B1B887CEC00055509 /* BRYGUtilities.h */,
+				CC26A18C1B887CEC00055509 /* BRYGUtilities.m */,
 				CC6D47AA1B33DD74009FFF83 /* BRYGWelcomeViewController.h */,
 				CC6D47AB1B33DD74009FFF83 /* BRYGWelcomeViewController.m */,
 				CCD40ADD1B3083F20076DAF6 /* Images.xcassets */,
@@ -298,7 +302,7 @@
 				CCD40AD31B3083F20076DAF6 /* main.m in Sources */,
 				CCFED58B1B32C0B40060D55F /* UIImageEffects.m in Sources */,
 				CC6D47AD1B33DD74009FFF83 /* BRYGNotificationViewController.m in Sources */,
-				CC6D47AE1B33DD74009FFF83 /* BRYGUtilities.m in Sources */,
+				CC26A18D1B887CEC00055509 /* BRYGUtilities.m in Sources */,
 				CC6D47AC1B33DD74009FFF83 /* BRYGBoardViewController.m in Sources */,
 				CC6D47AF1B33DD74009FFF83 /* BRYGWelcomeViewController.m in Sources */,
 			);
@@ -424,6 +428,7 @@
 				INFOPLIST_FILE = BRYG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -441,6 +446,7 @@
 				INFOPLIST_FILE = BRYG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

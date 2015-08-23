@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)loadGamePlay:(BOOL)animated;
+- (void)loadGamePlay;
 
 @end

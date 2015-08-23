@@ -33,7 +33,7 @@
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
     {
-        [self loadGamePlay:NO];
+        [self loadGamePlay];
     }
     
     else
@@ -56,32 +56,13 @@
     [Appirater appEnteredForeground:YES];
 }
 
-- (void)loadGamePlay:(BOOL)animated
+- (void)loadGamePlay
 {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     BRYGBoardViewController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"GamePlayViewController"];
     
-    if (animated)
-    {
-        [UIView transitionWithView:self.window
-                          duration:0.5
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^{
-                            
-                            [self.window setRootViewController:controller];
-                        }
-                        completion:^(BOOL finished) {
-                            
-                            [controller layoutBlocks];
-                        }];
-    }
-    
-    else
-    {
-        [self.window setRootViewController:controller];
-        [controller layoutBlocks];
-    }
+    [self.window setRootViewController:controller];
 }
 
 - (void)loadWelcomeScreen
