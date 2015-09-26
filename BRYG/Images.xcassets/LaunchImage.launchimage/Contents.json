@@ -3,9 +3,9 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "iphone-portrait@2x.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "iphone-portrait@2x.png",
       "scale" : "2x"
     },
     {
@@ -20,17 +20,17 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
+      "filename" : "ipad-portrait.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "ipad-portrait.png",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
+      "filename" : "ipad-portrait@2x.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "ipad-portrait@2x.png",
       "scale" : "2x"
     }
   ],

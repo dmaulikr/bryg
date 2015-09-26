@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		A0CD0ABE980B2B1A91594F58 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6085F06744CBA736567796A9 /* libPods.a */; };
 		CC0DE1F41B88E6A3004D0AFB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0DE1F31B88E6A3004D0AFB /* iAd.framework */; };
-		CC1699BA1B31939F00F1EADF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1699B81B31939F00F1EADF /* Crashlytics.framework */; };
-		CC1699BB1B31939F00F1EADF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1699B91B31939F00F1EADF /* Fabric.framework */; };
 		CC26A18D1B887CEC00055509 /* BRYGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CC26A18C1B887CEC00055509 /* BRYGUtilities.m */; };
 		CC34B6811B33062600BBECBC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC34B6801B33062600BBECBC /* GameKit.framework */; };
 		CC555FFA1B337D8C00217B03 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC555FF91B337D8C00217B03 /* Settings.bundle */; };
@@ -29,8 +27,6 @@
 		6085F06744CBA736567796A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C39C49F9BB56AE438CD35A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CC0DE1F31B88E6A3004D0AFB /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		CC1699B81B31939F00F1EADF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
-		CC1699B91B31939F00F1EADF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		CC26A18B1B887CEC00055509 /* BRYGUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGUtilities.h; path = Classes/BRYGUtilities.h; sourceTree = "<group>"; };
 		CC26A18C1B887CEC00055509 /* BRYGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGUtilities.m; path = Classes/BRYGUtilities.m; sourceTree = "<group>"; };
 		CC34B6801B33062600BBECBC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -59,8 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC1699BA1B31939F00F1EADF /* Crashlytics.framework in Frameworks */,
-				CC1699BB1B31939F00F1EADF /* Fabric.framework in Frameworks */,
 				CC0DE1F41B88E6A3004D0AFB /* iAd.framework in Frameworks */,
 				CC34B6811B33062600BBECBC /* GameKit.framework in Frameworks */,
 				A0CD0ABE980B2B1A91594F58 /* libPods.a in Frameworks */,
@@ -87,15 +81,6 @@
 				A6C39C49F9BB56AE438CD35A /* Pods.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		CC1699BC1B31954800F1EADF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CC1699B81B31939F00F1EADF /* Crashlytics.framework */,
-				CC1699B91B31939F00F1EADF /* Fabric.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CCD40AC41B3083F20076DAF6 = {
@@ -131,7 +116,6 @@
 				CCD40ADF1B3083F20076DAF6 /* LaunchScreen.xib */,
 				CCD40ADA1B3083F20076DAF6 /* Main.storyboard */,
 				CCFED58C1B32C0B90060D55F /* External */,
-				CC1699BC1B31954800F1EADF /* Frameworks */,
 				CCD40AD01B3083F20076DAF6 /* Supporting Files */,
 			);
 			path = BRYG;
@@ -188,7 +172,7 @@
 		CCD40AC51B3083F20076DAF6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Ahmed Omer";
 				TargetAttributes = {
 					CCD40ACC1B3083F20076DAF6 = {
@@ -276,7 +260,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./BRYG/Frameworks/Fabric.framework/run 0af296d4e8c2add777363667426846198a5b9584 0e9b3c691c1b319cc222e6e16429282605fb78ec5a2593b11d52fb4ff254d5a4";
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 0af296d4e8c2add777363667426846198a5b9584 0e9b3c691c1b319cc222e6e16429282605fb78ec5a2593b11d52fb4ff254d5a4";
 		};
 		CC555FFB1B337E1200217B03 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -352,6 +336,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -427,6 +412,7 @@
 				);
 				INFOPLIST_FILE = BRYG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahmedomer.bryg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -445,6 +431,7 @@
 				);
 				INFOPLIST_FILE = BRYG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahmedomer.bryg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

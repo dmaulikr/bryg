@@ -89,7 +89,7 @@
                 
                 if (error)
                 {
-                    NSLog(@"%@", [error localizedDescription]);
+                    NSLog(@"%@", error.localizedDescription);
                 }
                 
                 else
@@ -112,7 +112,7 @@
     UIView *imageView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, _blockSize, _blockSize)];
     
     imageView.backgroundColor = color;
-    imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    imageView.layer.borderColor = [UIColor whiteColor].CGColor;
     imageView.layer.borderWidth = 0.5;
     
     if ([color isEqual:COLOR_BLUE])
@@ -343,7 +343,7 @@
      {
          if (error)
          {
-             NSLog(@"%@", [error localizedDescription]);
+             NSLog(@"%@", error.localizedDescription);
          }
      }];
 }
@@ -363,7 +363,7 @@
 
 - (IBAction)didSwipe:(UISwipeGestureRecognizer*)sender
 {
-    UISwipeGestureRecognizerDirection direction = [sender direction];
+    UISwipeGestureRecognizerDirection direction = sender.direction;
     UIView *blockToMove = nil;
     
     int x = [_voidCoordinates[@"x"] intValue], y = [_voidCoordinates[@"y"] intValue];
@@ -506,7 +506,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    BRYGNotificationViewController *controller = [segue destinationViewController];
+    BRYGNotificationViewController *controller = segue.destinationViewController;
     
     UIGraphicsBeginImageContext(self.view.frame.size);
     CGContextRef cgcontext = UIGraphicsGetCurrentContext();

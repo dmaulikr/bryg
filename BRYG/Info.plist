@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>BuildDate</key>
-	<string>08-23-2015 02:56:18 PM</string>
+	<string>09-26-2015 05:19:23 PM</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.ahmedomer.bryg</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

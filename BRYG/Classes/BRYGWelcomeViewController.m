@@ -13,7 +13,7 @@
 
 - (IBAction)next
 {
-    AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     
     [delegate loadGamePlay];
 }

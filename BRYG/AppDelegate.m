@@ -11,8 +11,8 @@
 #import "BRYGBoardViewController.h"
 
 #import <Appirater/Appirater.h>
-#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
 
 @implementation AppDelegate
 
@@ -26,9 +26,9 @@
     [Appirater setSignificantEventsUntilPrompt:-1];
     [Appirater setDebug:NO];
     
-    [Fabric with:@[CrashlyticsKit]];
+    [Fabric with:@[[Crashlytics class]]];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
@@ -62,7 +62,7 @@
     
     BRYGBoardViewController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"GamePlayViewController"];
     
-    [self.window setRootViewController:controller];
+    (self.window).rootViewController = controller;
 }
 
 - (void)loadWelcomeScreen
@@ -71,13 +71,13 @@
     
     BRYGWelcomeViewController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"WelcomeViewController"];
     
-    [self.window setRootViewController:controller];
+    (self.window).rootViewController = controller;
 }
 
 - (void)updateSettingsBundleInfo {
     
-    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
-    NSString *date = [[NSBundle mainBundle] infoDictionary][@"BuildDate"];
+    NSString *version = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+    NSString *date = [NSBundle mainBundle].infoDictionary[@"BuildDate"];
     
     [[NSUserDefaults standardUserDefaults] setObject:version
                                               forKey:@"version_preference"];
