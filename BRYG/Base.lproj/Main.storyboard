@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -20,6 +20,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kqB-Rl-A9J">
                                 <rect key="frame" x="20" y="166" width="335" height="335"/>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kqB-Rl-A9J" secondAttribute="height" multiplier="1:1" id="se8-gf-OH6"/>
@@ -27,30 +28,35 @@
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLUE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYE-LH-h47">
                                 <rect key="frame" x="20" y="144" width="29" height="14"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>
                                 <color key="textColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fV3-Mx-FdB">
                                 <rect key="frame" x="332" y="144" width="23" height="14"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>
                                 <color key="textColor" red="0.90588235294117647" green="0.29803921568627451" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YELLOW" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8R-yh-3Lb">
                                 <rect key="frame" x="20" y="509" width="46" height="14"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>
                                 <color key="textColor" red="0.94509803921568625" green="0.76862745098039209" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GREEN" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOB-ua-jJX">
                                 <rect key="frame" x="317" y="509" width="38" height="14"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>
                                 <color key="textColor" red="0.15294117647058825" green="0.68235294117647061" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTe-KD-G8q">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="b69-AD-voc"/>
                                 </constraints>
@@ -73,12 +79,14 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-large" translatesAutoresizingMaskIntoConstraints="NO" id="vo0-cH-HLW">
                                                     <rect key="frame" x="65" y="7" width="20" height="20"/>
+                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="fvr-IZ-xy8"/>
                                                         <constraint firstAttribute="width" constant="20" id="mXq-5h-82p"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="vo0-cH-HLW" secondAttribute="centerY" id="rOU-pb-Jjo"/>
@@ -93,13 +101,39 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u63-TX-jc3">
+                                <rect key="frame" x="20" y="599" width="48" height="48"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="UUg-gp-f2Q"/>
+                                    <constraint firstAttribute="width" constant="48" id="pNa-9f-yl3"/>
+                                </constraints>
+                                <state key="normal" image="btn-recording-start"/>
+                                <connections>
+                                    <action selector="toggleRecording" destination="vXZ-lx-hvc" eventType="touchUpInside" id="CXS-sv-y1h"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqf-II-6CP">
+                                <rect key="frame" x="76" y="599" width="48" height="48"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="Li2-7T-KvF"/>
+                                    <constraint firstAttribute="width" constant="48" id="Nhq-R7-aXw"/>
+                                </constraints>
+                                <state key="normal" image="btn-recording-preview"/>
+                                <connections>
+                                    <action selector="previewRecording" destination="vXZ-lx-hvc" eventType="touchUpInside" id="XrR-JO-0iN"/>
+                                </connections>
+                            </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 MOVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vdl-CD-f9K">
-                                <rect key="frame" x="163" y="144" width="49" height="14"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                <rect key="frame" x="293" y="615" width="62" height="17"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -109,12 +143,17 @@
                             <constraint firstAttribute="trailing" secondItem="VOB-ua-jJX" secondAttribute="trailing" constant="20" id="6iL-Rd-IRI"/>
                             <constraint firstAttribute="trailing" secondItem="tTe-KD-G8q" secondAttribute="trailing" id="BUe-Pw-iQx"/>
                             <constraint firstItem="V8R-yh-3Lb" firstAttribute="top" secondItem="kqB-Rl-A9J" secondAttribute="bottom" constant="8" id="Bfp-k4-iwg"/>
-                            <constraint firstItem="kqB-Rl-A9J" firstAttribute="top" secondItem="vdl-CD-f9K" secondAttribute="bottom" constant="8" id="BgC-pc-18o"/>
-                            <constraint firstAttribute="centerX" secondItem="vdl-CD-f9K" secondAttribute="centerX" id="KKi-Aa-AX8"/>
+                            <constraint firstItem="vdl-CD-f9K" firstAttribute="trailing" secondItem="VOB-ua-jJX" secondAttribute="trailing" id="FhB-8X-B40"/>
+                            <constraint firstItem="u63-TX-jc3" firstAttribute="leading" secondItem="V8R-yh-3Lb" secondAttribute="leading" id="HAq-7P-VQJ"/>
+                            <constraint firstItem="vdl-CD-f9K" firstAttribute="centerY" secondItem="u63-TX-jc3" secondAttribute="centerY" id="IKA-tk-L2G"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Kqf-II-6CP" secondAttribute="bottom" constant="20" id="Ofg-jc-qXS"/>
                             <constraint firstAttribute="trailing" secondItem="kqB-Rl-A9J" secondAttribute="trailing" constant="20" id="OqD-7c-b1u"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="u63-TX-jc3" secondAttribute="bottom" constant="20" id="WXr-ia-ULn"/>
                             <constraint firstItem="tTe-KD-G8q" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="ZwW-Hh-N7N"/>
                             <constraint firstItem="fYE-LH-h47" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="a3p-qX-ULY"/>
+                            <constraint firstItem="Kqf-II-6CP" firstAttribute="centerY" secondItem="u63-TX-jc3" secondAttribute="centerY" id="b6B-PT-MuU"/>
                             <constraint firstItem="kqB-Rl-A9J" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="bvd-Kk-AH3"/>
+                            <constraint firstItem="Kqf-II-6CP" firstAttribute="leading" secondItem="u63-TX-jc3" secondAttribute="trailing" constant="8" id="c8H-g5-lP6"/>
                             <constraint firstItem="V8R-yh-3Lb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="erz-BZ-WJ6"/>
                             <constraint firstItem="VOB-ua-jJX" firstAttribute="top" secondItem="kqB-Rl-A9J" secondAttribute="bottom" constant="8" id="kW6-z2-yXU"/>
                             <constraint firstItem="tTe-KD-G8q" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="lgW-HJ-nik"/>
@@ -130,6 +169,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="blueConstraint" destination="a3p-qX-ULY" id="T6z-wU-XBQ"/>
+                        <outlet property="btnPreview" destination="Kqf-II-6CP" id="5rq-OL-0fQ"/>
+                        <outlet property="btnRecording" destination="u63-TX-jc3" id="Ps8-fx-BCW"/>
                         <outlet property="canvasView" destination="kqB-Rl-A9J" id="F48-6m-ooT"/>
                         <outlet property="greenConstraint" destination="6iL-Rd-IRI" id="nLh-0Z-D0h"/>
                         <outlet property="lblBlue" destination="fYE-LH-h47" id="lb2-21-Yyh"/>
@@ -180,6 +221,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="HmE-Wm-vTN">
                                 <rect key="frame" x="20" y="307" width="335" height="54"/>
+                                <animations/>
                                 <string key="text">On your board, you will find 4 types of blocks, each represented by a different color. These blocks are placed randomly on the board leaving one slot unoccupied. Your goal is to use this slot to swipe your blocks into place and gather similar blocks together into their designated corners.
 
 Keep your moves to a minimum to make your way up the leaderboard.</string>
@@ -189,6 +231,7 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                             </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRS-ud-5Fd">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Oic-3Y-KAq"/>
                                 </constraints>
@@ -207,12 +250,14 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-large" translatesAutoresizingMaskIntoConstraints="NO" id="5Pu-Xb-P9U">
                                                     <rect key="frame" x="65" y="7" width="20" height="20"/>
+                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="SUu-Ei-0iK"/>
                                                         <constraint firstAttribute="height" constant="20" id="ZCu-5L-wpA"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="centerX" secondItem="5Pu-Xb-P9U" secondAttribute="centerX" id="sAa-vl-YTF"/>
@@ -224,6 +269,7 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVQ-At-GkS">
                                 <rect key="frame" x="167" y="585" width="42" height="42"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="Bgc-oQ-6FL"/>
                                     <constraint firstAttribute="height" constant="42" id="cCN-M3-s14"/>
@@ -236,6 +282,7 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RRh-K1-tRP" firstAttribute="top" secondItem="mVQ-At-GkS" secondAttribute="bottom" constant="40" id="60T-LS-b6M"/>
@@ -269,6 +316,7 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sA-IC-ByY">
                                 <rect key="frame" x="167" y="585" width="42" height="42"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="O4G-S7-jei"/>
                                     <constraint firstAttribute="height" constant="42" id="Xff-eR-CJM"/>
@@ -283,18 +331,21 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="lRr-Nl-bzg">
                                 <rect key="frame" x="20" y="325" width="335" height="18"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img-medal" translatesAutoresizingMaskIntoConstraints="NO" id="Io9-0H-TrE">
                                 <rect key="frame" x="145" y="60" width="85" height="85"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="bW3-Qe-bxa"/>
                                     <constraint firstAttribute="height" constant="85" id="bvJ-cS-o6p"/>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Io9-0H-TrE" firstAttribute="top" secondItem="CmN-UR-YQm" secondAttribute="bottom" constant="40" id="29e-Nr-ReF"/>
@@ -319,9 +370,11 @@ Keep your moves to a minimum to make your way up the leaderboard.</string>
     <resources>
         <image name="btn-close" width="42" height="42"/>
         <image name="btn-next" width="42" height="42"/>
+        <image name="btn-recording-preview" width="42" height="42"/>
+        <image name="btn-recording-start" width="42" height="42"/>
         <image name="img-medal" width="85" height="85"/>
         <image name="logo-large" width="100" height="100"/>
-        <image name="nav-leaderboard" width="20" height="20"/>
-        <image name="nav-reload" width="20" height="20"/>
+        <image name="nav-leaderboard" width="22" height="22"/>
+        <image name="nav-reload" width="22" height="22"/>
     </resources>
 </document>

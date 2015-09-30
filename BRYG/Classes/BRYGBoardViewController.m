@@ -16,24 +16,27 @@
 #define COLOR_GREEN     Color(39, 174, 96)
 
 #import <GameKit/GameKit.h>
-#import <iAd/iAd.h>
+#import <ReplayKit/ReplayKit.h>
 
 #import "BRYGBoardViewController.h"
 #import "BRYGNotificationViewController.h"
 #import "BRYGUtilities.h"
 #import "UIImageEffects.h"
 
-@interface BRYGBoardViewController () <ADBannerViewDelegate, GKGameCenterControllerDelegate>
+@interface BRYGBoardViewController () <GKGameCenterControllerDelegate, RPPreviewViewControllerDelegate>
 {
-    BOOL            _gameCenterEnabled;
+    BOOL            _gameCenterEnabled, _gameCompleted;
     
     int             _blockSize, _margin, _moves;
     
-    ADBannerView    *_bannerView;
     NSDictionary    *_voidCoordinates;
     NSMutableArray  *_blocks, *_colors;
     NSString        *_leaderboardId;
 }
+
+@property (nonatomic, strong) UIViewController  *previewViewController;
+@property (nonatomic, weak) IBOutlet UIButton   *btnRecording;
+@property (nonatomic, weak) IBOutlet UIButton   *btnPreview;
 
 @end
 
@@ -59,7 +62,96 @@
     
     [self layoutBlocks];
     
-    [self initBannerView];
+    [[RPScreenRecorder sharedRecorder] addObserver:self
+                                        forKeyPath:@"recording"
+                                           options:NSKeyValueObservingOptionNew
+                                           context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSString *,id> *)change
+                       context:(void *)context
+{
+    if (object == [RPScreenRecorder sharedRecorder] && [keyPath isEqualToString:@"recording"])
+    {
+        if ([RPScreenRecorder sharedRecorder].recording)
+        {
+            [self.btnRecording setImage:[UIImage imageNamed:@"btn-recording-stop"]
+                               forState:UIControlStateNormal];
+            
+            [self.btnPreview setHidden:YES];
+        }
+        
+        else
+        {
+            [self.btnRecording setImage:[UIImage imageNamed:@"btn-recording-start"]
+                               forState:UIControlStateNormal];
+            
+            [self.btnPreview setHidden:NO];
+        }
+    }
+    
+    else
+    {
+        [super observeValueForKeyPath:keyPath
+                             ofObject:object
+                               change:change
+                              context:context];
+    }
+}
+
+- (IBAction)previewRecording
+{
+    if (self.previewViewController)
+    {
+        [self presentViewController:self.previewViewController
+                           animated:YES
+                         completion:nil];
+    }
+}
+
+- (void)startRecording
+{
+    if (![RPScreenRecorder class])
+    {
+        return;
+    }
+    
+    RPScreenRecorder *recorder = [RPScreenRecorder sharedRecorder];
+    
+    self.previewViewController = nil;
+    
+    [recorder startRecordingWithMicrophoneEnabled:YES
+                                          handler:^(NSError * _Nullable error) {
+                                              if (error) {
+                                                  NSLog(@"Error: %@", error);
+                                              }
+                                          }];
+}
+
+- (void)stopRecording
+{
+    RPScreenRecorder *recorder = [RPScreenRecorder sharedRecorder];
+    
+    [recorder stopRecordingWithHandler:^(RPPreviewViewController * _Nullable previewViewController, NSError * _Nullable error) {
+        
+        previewViewController.previewControllerDelegate = self;
+        self.previewViewController = previewViewController;
+    }];
+}
+
+- (IBAction)toggleRecording
+{
+    [RPScreenRecorder sharedRecorder].recording ? [self stopRecording] : [self startRecording];
+}
+
+#pragma mark - RPPreviewViewControllerDelegate
+
+- (void)previewControllerDidFinish:(RPPreviewViewController *)previewController
+{
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 }
 
 #pragma mark -
@@ -204,22 +296,6 @@
     return YES;
 }
 
-- (void)initBannerView
-{
-    if (_bannerView == nil)
-    {
-        _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-        _bannerView.delegate = self;
-    }
-    
-    [self layoutBannerView];
-    
-    if (_bannerView.superview == nil)
-    {
-        [self.view addSubview:_bannerView];
-    }
-}
-
 - (void)initBlocks
 {
     if (_blocks == nil)
@@ -246,7 +322,7 @@
     
     _blocks[GRID_SIZE - 1][GRID_SIZE - 1] = [NSNull null];
     _voidCoordinates = @{@"x":@(GRID_SIZE - 1),
-                        @"y":@(GRID_SIZE - 1)};
+                         @"y":@(GRID_SIZE - 1)};
 }
 
 - (void)initColors
@@ -352,10 +428,10 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-        
-        [self performSegueWithIdentifier:@"SegueGameComplete"
-                                  sender:nil];
-    });
+                       
+                       [self performSegueWithIdentifier:@"SegueGameComplete"
+                                                 sender:nil];
+                   });
 }
 
 
@@ -363,6 +439,11 @@
 
 - (IBAction)didSwipe:(UISwipeGestureRecognizer*)sender
 {
+    if (_gameCompleted)
+    {
+        return;
+    }
+    
     UISwipeGestureRecognizerDirection direction = sender.direction;
     UIView *blockToMove = nil;
     
@@ -422,7 +503,7 @@
     
     blockToMove = _blocks[x + dx][y + dy];
     _voidCoordinates = @{@"x":@(x + dx),
-                        @"y":@(y + dy)};
+                         @"y":@(y + dy)};
     
     _blocks[x][y] = blockToMove;
     _blocks[x + dx][y + dy] = [NSNull null];
@@ -442,7 +523,7 @@
     
     self.lblMoves.text = [BRYGUtilities stringForMoves:_moves];
     
-    if ([self didCompletePuzzle])
+    if ((_gameCompleted = [self didCompletePuzzle]))
     {
         [self showNotificationScreen];
         [self reportScore];
@@ -463,6 +544,7 @@
     [self layoutBlocks];
     
     _moves = 0;
+    _gameCompleted = NO;
     
     self.lblMoves.text = [NSString stringWithFormat:@"%d MOVES", _moves];
 }
@@ -521,51 +603,6 @@
     
     controller.numberOfMoves = _moves;
     controller.view.backgroundColor = [UIColor colorWithPatternImage:image];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC),
-                   dispatch_get_main_queue(), ^{
-                       
-                       [self reloadBoard];
-                   });
-}
-
-#pragma mark - ADBannerViewDelegate
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-    [self layoutBannerView];
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-    [self layoutBannerView];
-}
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-    return YES;
-}
-
-- (void)layoutBannerView
-{
-    CGRect contentFrame = self.view.bounds;
-    CGRect bannerFrame = _bannerView.frame;
-    
-    if (_bannerView.bannerLoaded)
-    {
-        contentFrame.size.height -= _bannerView.frame.size.height;
-        bannerFrame.origin.y = contentFrame.size.height;
-    }
-    
-    else
-    {
-        bannerFrame.origin.y = contentFrame.size.height;
-    }
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        _bannerView.frame = bannerFrame;
-    }];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A0CD0ABE980B2B1A91594F58 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6085F06744CBA736567796A9 /* libPods.a */; };
-		CC0DE1F41B88E6A3004D0AFB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0DE1F31B88E6A3004D0AFB /* iAd.framework */; };
+		CC0097E71BBAAE2000F13CE5 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0097E61BBAAE2000F13CE5 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CC26A18D1B887CEC00055509 /* BRYGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CC26A18C1B887CEC00055509 /* BRYGUtilities.m */; };
 		CC34B6811B33062600BBECBC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC34B6801B33062600BBECBC /* GameKit.framework */; };
 		CC555FFA1B337D8C00217B03 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC555FF91B337D8C00217B03 /* Settings.bundle */; };
@@ -26,6 +26,7 @@
 /* Begin PBXFileReference section */
 		6085F06744CBA736567796A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C39C49F9BB56AE438CD35A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		CC0097E61BBAAE2000F13CE5 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		CC0DE1F31B88E6A3004D0AFB /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		CC26A18B1B887CEC00055509 /* BRYGUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRYGUtilities.h; path = Classes/BRYGUtilities.h; sourceTree = "<group>"; };
 		CC26A18C1B887CEC00055509 /* BRYGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRYGUtilities.m; path = Classes/BRYGUtilities.m; sourceTree = "<group>"; };
@@ -55,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC0DE1F41B88E6A3004D0AFB /* iAd.framework in Frameworks */,
+				CC0097E71BBAAE2000F13CE5 /* ReplayKit.framework in Frameworks */,
 				CC34B6811B33062600BBECBC /* GameKit.framework in Frameworks */,
 				A0CD0ABE980B2B1A91594F58 /* libPods.a in Frameworks */,
 			);
@@ -67,6 +68,7 @@
 		2F4AB96B71C2EAB62C3320DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC0097E61BBAAE2000F13CE5 /* ReplayKit.framework */,
 				CC0DE1F31B88E6A3004D0AFB /* iAd.framework */,
 				CC34B6801B33062600BBECBC /* GameKit.framework */,
 				6085F06744CBA736567796A9 /* libPods.a */,
@@ -355,7 +357,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "51fee0e9-d5b7-4e50-ab3e-ee5e782bb91b";
+				PROVISIONING_PROFILE = "c92f1492-65d6-419c-967b-7a1f6416f826";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -393,7 +395,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "77857252-e986-42d4-b68d-177179a4f698";
+				PROVISIONING_PROFILE = "dce6f393-8ee6-4c22-a51e-2765a5050fec";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
