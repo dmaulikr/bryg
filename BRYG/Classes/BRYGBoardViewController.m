@@ -62,10 +62,13 @@
     
     [self layoutBlocks];
     
-    [[RPScreenRecorder sharedRecorder] addObserver:self
-                                        forKeyPath:@"recording"
-                                           options:NSKeyValueObservingOptionNew
-                                           context:NULL];
+    if ([RPScreenRecorder class])
+    {
+        [[RPScreenRecorder sharedRecorder] addObserver:self
+                                            forKeyPath:@"recording"
+                                               options:NSKeyValueObservingOptionNew
+                                               context:NULL];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -73,7 +76,7 @@
                         change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context
 {
-    if (object == [RPScreenRecorder sharedRecorder] && [keyPath isEqualToString:@"recording"])
+    if ([RPScreenRecorder class] && object == [RPScreenRecorder sharedRecorder] && [keyPath isEqualToString:@"recording"])
     {
         if ([RPScreenRecorder sharedRecorder].recording)
         {
@@ -113,11 +116,6 @@
 
 - (void)startRecording
 {
-    if (![RPScreenRecorder class])
-    {
-        return;
-    }
-    
     RPScreenRecorder *recorder = [RPScreenRecorder sharedRecorder];
     
     self.previewViewController = nil;
@@ -125,7 +123,14 @@
     [recorder startRecordingWithMicrophoneEnabled:YES
                                           handler:^(NSError * _Nullable error) {
                                               if (error) {
-                                                  NSLog(@"Error: %@", error);
+                                                  
+                                                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                                  message:error.localizedDescription
+                                                                                                 delegate:nil
+                                                                                        cancelButtonTitle:@"Dismiss"
+                                                                                        otherButtonTitles:nil];
+                                                  
+                                                  [alert show];
                                               }
                                           }];
 }
@@ -143,6 +148,19 @@
 
 - (IBAction)toggleRecording
 {
+    if (![RPScreenRecorder class])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Supported"
+                                                        message:@"This feature is not supported by the current version of iOS."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Dismiss"
+                                              otherButtonTitles:nil];
+        
+        [alert show];
+        
+        return;
+    }
+    
     [RPScreenRecorder sharedRecorder].recording ? [self stopRecording] : [self startRecording];
 }
 
